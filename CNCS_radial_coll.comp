@@ -53,7 +53,7 @@ DEFINE COMPONENT CNCS_radial_coll
 DEFINITION PARAMETERS ()
 SETTING PARAMETERS (roc,verbose=0)
 OUTPUT PARAMETERS (alpha_in, alpha_out, out_radius, beta_in, beta_out, divergence)
-STATE PARAMETERS (x,y,z,vx,vy,vz,t,s1,s2,p)
+/* STATE PARAMETERS (x,y,z,vx,vy,vz,t,s1,s2,p) */
 
 DECLARE
 %{

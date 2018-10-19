@@ -239,7 +239,7 @@ COMPONENT Guide4 = Guide(w1=0.05, h1=0.1, w2=0.05, h2=0.1,
 AT (0,0,6.560) RELATIVE arm1 ROTATED (0,0,0) RELATIVE arm1
 
 /* Chopper #2  Distance Moderator - CH#2 = 7515 mm, 60Hz = 2Pi*60= 376.9911 rad/s*/
-COMPONENT Chopper2=DiskChopper(R=0.25, theta_0=14.0, omega=376.9911, n=1, t_0=f2_tof)
+COMPONENT Chopper2=DiskChopper(radius=0.25, theta_0=14.0, nu=60.0, nslit=1, delay=f2_tof, isfirst=0, yheight=0)
 AT (0,0,7.515) RELATIVE arm1 ROTATED (0,0,0) RELATIVE arm1
 
 /*Beam monitor N2. I use TOF, PSD and energy monitors together */
@@ -289,7 +289,7 @@ COMPONENT Guide8 = Guide(w1=0.05, h1=0.1, w2=0.035, h2=0.0765,
 AT (0,0,30.545) RELATIVE arm1 
 
 /*Chopper #3  Distance Moderator - CH#3 = 33020 mm, 60Hz = 2Pi*60= 376.9911 rad/s*/
-COMPONENT Chopper3=DiskChopper(R=0.25, theta_0=14.0, omega=376.9911, n=1, t_0=f3_tof)
+COMPONENT Chopper3=DiskChopper(radius=0.25, theta_0=14.0, nu=60.0, nslit=1, delay=f3_tof, isfirst=0, yheight=0)
 AT (0,0,33.020) RELATIVE arm1
 
 /* Guide N9 funnel*/
@@ -315,10 +315,11 @@ At (0,0,34.735) RELATIVE arm1*/
 /* Slits: 9 deg, 4.4 deg, 2 deg 				*/ 
 /* 9/4.4 deg is High Flux mode	                                */
 /* 2/4.4 deg is High Resolution mode	                        */
-COMPONENT Chopper41=DiskChopper(R=0.2825, h=0.065, theta_0=4.4, omega=-f41omega, n=1, t_0=-f41_tof)
+COMPONENT Chopper41=DiskChopper(radius=0.2825, theta_0=4.4, nu=-300.0, nslit=1, delay=-f41_tof, isfirst=0, yheight=0.065)
 AT (0,0,34.784) RELATIVE arm1
-COMPONENT Chopper42=DiskChopper(R=0.2825, h=0.065, theta_0=9.0, omega=f42omega, n=1, t_0=f42_tof)
+COMPONENT Chopper42=DiskChopper(radius=0.2825, theta_0=9.0, nu=300.0, nslit=1, delay=f42_tof, isfirst=0, yheight=0.065)
 AT (0,0,34.785) RELATIVE arm1
+
 
 /*Beam monitor N3. */
 /*  3meV nchan=150,t0=45950,t1=46100,		*/
@@ -362,9 +363,14 @@ AT (0,0,35.762) RELATIVE arm1
 /* 30meV nchan=150,t0=15050,t1=15200   TOF~15140*/
 
 /* Vanadium sample, an isotropic scatterer.   */
-COMPONENT target = V_sample(radius_i = 0.0, radius_o = 0.003125,
+/*COMPONENT target = V_sample(radius_i = 0.0, radius_o = 0.003125,
   h = 0.04, focus_aw = 265, focus_ah = 35.0, pack = 1, 
   sig_a = 0.0, target_z = 3.5)
+At (0,0,36.264) RELATIVE arm1 ROTATED (0,0,0) RELATIVE arm1*/
+
+COMPONENT target = Incoherent(
+    radius=0.001, 
+    yheight=0.01)
 At (0,0,36.264) RELATIVE arm1 ROTATED (0,0,0) RELATIVE arm1
 
 /*COMPONENT tof_sample=TOF_monitor(xmin = -.0075,xmax = .0075,
@@ -419,7 +425,7 @@ COMPONENT CNCS_coll = CNCS_radial_coll(roc = 1)
 /* distance between sample and detector: 3.5 m		*/
 
 COMPONENT CNCS_mon1 = Monitor_nD(
-  xwidth = 7.0, yheight = 2.0, zthick = 0.0256,
+  xwidth = 7.0, yheight = 2.0, zdepth = 0.0256,
   options = "banana, theta limits=[45,135] bins=288, y bins=128, file = mon1_coll,3He_pressure=6")
 AT (0,0,0) RELATIVE arm2				
 
